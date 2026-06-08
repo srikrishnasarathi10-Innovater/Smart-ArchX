@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script>
+    // Initialize theme based on preference to avoid flash of unstyled content (FOUC)
+    (function() {
+      const savedTheme = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    })();
+  </script>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>👣</text></svg>" />
+  <title>STEP RIGHT | Plantar Pressure Diagnostics</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  
+  <!-- Outfit, JetBrains Mono, and Inter Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;700&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  
+  <!-- Material Symbols Outlined Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+ 
+  <!-- KaTeX CDN for mathematical typesetting -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
+ 
+  <!-- CSS customizations for scrolling properties, light-follow effects, and grid lines -->
+  <link rel="stylesheet" href="style.css">
+ 
+  <!-- Tailwind theme specifications matching mockup variables -->
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "tertiary-fixed-dim": "var(--tertiary-fixed-dim)",
+            "border-low-light": "var(--border-low-light)",
+            "on-tertiary": "var(--on-tertiary)",
+            "surface-variant": "var(--surface-variant)",
+            "outline": "var(--outline)",
+            "inverse-on-surface": "var(--inverse-on-surface)",
+            "on-secondary": "var(--on-secondary)",
+            "on-primary-fixed-variant": "var(--on-primary-fixed-variant)",
+            "on-surface-variant": "var(--on-surface-variant)",
+            "error": "var(--error)",
+            "surface-container-high": "var(--surface-container-high)",
+            "on-primary-fixed": "var(--on-primary-fixed)",
+            "on-background": "var(--on-background)",
+            "tertiary-fixed": "var(--tertiary-fixed)",
+            "primary-fixed-dim": "var(--primary-fixed-dim)",
+            "on-primary-container": "var(--on-primary-container)",
+            "on-error-container": "var(--on-error-container)",
+            "background": "var(--background)",
+            "error-container": "var(--error-container)",
+            "surface-container-low": "var(--surface-container-low)",
+            "on-primary": "var(--on-primary)",
+            "surface": "var(--surface)",
+            "on-tertiary-fixed-variant": "var(--on-tertiary-fixed-variant)",
+            "secondary": "var(--secondary)",
+            "surface-charcoal": "var(--surface-charcoal)",
+            "inverse-primary": "var(--inverse-primary)",
+            "tertiary-container": "var(--tertiary-container)",
+            "primary": "var(--primary)",
+            "inverse-surface": "var(--inverse-surface)",
+            "surface-bright": "var(--surface-bright)",
+            "outline-variant": "var(--outline-variant)",
+            "surface-container-highest": "var(--surface-container-highest)",
+            "on-error": "var(--on-error)",
+            "clinical-white": "var(--clinical-white)",
+            "primary-fixed": "var(--primary-fixed)",
+            "secondary-container": "var(--secondary-container)",
+            "surface-container-lowest": "var(--surface-container-lowest)",
+            "secondary-fixed": "var(--secondary-fixed)",
+            "on-secondary-fixed-variant": "var(--on-secondary-fixed-variant)",
+            "primary-container": "var(--primary-container)",
+            "on-tertiary-container": "var(--on-tertiary-container)",
+            "on-tertiary-fixed": "var(--on-tertiary-fixed)",
+            "on-surface": "var(--on-surface)",
+            "surface-dim": "var(--surface-dim)",
+            "surface-tint": "var(--surface-tint)",
+            "secondary-fixed-dim": "var(--secondary-fixed-dim)",
+            "on-secondary-fixed": "var(--on-secondary-fixed)",
+            "surface-container": "var(--surface-container)",
+            "tertiary": "var(--tertiary)",
+            "on-secondary-container": "var(--on-secondary-container)",
+            "diagnostic-magenta": "var(--diagnostic-magenta)"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.5rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "gutter": "16px",
+            "panel-padding": "24px",
+            "unit": "4px",
+            "margin-tablet": "32px",
+            "margin-mobile": "16px",
+            "margin-desktop": "48px"
+          },
+          "fontFamily": {
+            "headline-xl": ["Outfit"],
+            "headline-lg": ["Outfit"],
+            "label-mono-sm": ["JetBrains Mono"],
+            "headline-md": ["Outfit"],
+            "body-md": ["Inter"],
+            "label-mono-lg": ["JetBrains Mono"],
+            "body-lg": ["Inter"]
+          },
+          "fontSize": {
+            "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+            "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+            "label-mono-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "400"}],
+            "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "500"}],
+            "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+            "label-mono-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+            "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-background text-on-background lg:h-screen lg:overflow-hidden flex flex-col">
+
+  <!-- Top Header Navigation -->
+  <header class="sticky top-0 w-full z-50 bg-background/80 backdrop-blur-md border-b border-border-low-light flex justify-between items-center px-margin-desktop py-4 shadow-sm shrink-0">
+    <div class="flex items-center gap-3">
+      <!-- 4-node footprints SVG Logo -->
+      <svg class="w-8 h-8 text-primary" viewBox="0 0 100 100" fill="currentColor">
+        <circle cx="35" cy="65" r="16" />
+        <circle cx="65" cy="55" r="14" />
+        <circle cx="50" cy="30" r="12" />
+        <circle cx="20" cy="45" r="10" />
+      </svg>
+      <h1 class="font-headline-md text-headline-md font-bold text-primary tracking-tight uppercase">STEP RIGHT</h1>
+      
+      <!-- Theme Toggle Switcher -->
+      <button id="theme-toggle-btn" class="ml-2 p-1.5 rounded-full border border-border-low-light bg-surface hover:bg-surface-variant/40 transition-all flex items-center justify-center active:scale-95 duration-100" title="Toggle Light/Dark Theme">
+        <span class="material-symbols-outlined text-primary text-base" id="theme-toggle-icon">dark_mode</span>
+      </button>
+    </div>
+    
+    <nav class="hidden md:flex items-center gap-2 bg-surface-container-low p-1 rounded-full border border-border-low-light" id="main-navigation-tabs-row">
+      <button class="bg-primary-container text-on-primary-container rounded-full px-6 py-1.5 font-medium transition-all duration-300" id="tab-btn-live">Workspace</button>
+      <button class="text-on-surface-variant hover:text-primary transition-all duration-300 px-6 py-1.5 rounded-full font-medium" id="tab-btn-education">Rehab & Education</button>
+    </nav>
+    
+    <div class="flex items-center gap-4">
+      <div class="flex items-center gap-2 bg-error/10 border border-error/20 px-3 py-1 rounded-full" id="global-status-badge">
+        <span class="w-2 h-2 rounded-full bg-error animate-pulse" id="global-status-dot"></span>
+        <span class="font-label-mono-sm text-label-mono-sm text-error uppercase" id="global-status-text">OFFLINE</span>
+      </div>
+      
+      <div class="flex gap-2">
+        <button class="p-2 rounded-full hover:bg-surface-variant/50 transition-colors text-on-surface-variant active:scale-95 duration-100">
+          <span class="material-symbols-outlined">settings</span>
+        </button>
+        <button class="p-2 rounded-full hover:bg-surface-variant/50 transition-colors text-on-surface-variant active:scale-95 duration-100">
+          <span class="material-symbols-outlined">notifications</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="py-4 px-margin-desktop lg:h-[calc(100vh-72px)] lg:overflow-hidden flex flex-col flex-grow">
+    
+    <!-- Main Grid Dashboard layout -->
+    <div class="grid grid-cols-12 gap-gutter lg:flex-grow lg:h-full lg:overflow-hidden">
+      <!-- Left Sidebar Panel -->
+      <aside class="col-span-12 lg:col-span-2 space-y-3 lg:h-full lg:overflow-y-auto">
+        
+        <!-- Navigation Hub -->
+        <div class="glass-panel p-3 flex flex-col gap-1">
+          <div class="mb-2">
+            <p class="font-label-mono-sm text-[10px] text-on-surface-variant uppercase mb-0.5">Diagnostic Hub</p>
+            <p class="font-label-mono-sm text-[10px] text-primary font-bold">V2.4 ACTIVE</p>
+          </div>
+          
+          <button class="flex items-center gap-2.5 w-full text-left py-2 px-3 rounded bg-primary/10 border-r-2 border-primary text-primary transition-all duration-300" id="sidebar-live-btn">
+            <span class="material-symbols-outlined text-lg">sensors</span>
+            <span class="font-label-mono-sm text-[11px] uppercase font-medium">Live Analysis</span>
+          </button>
+          
+          <button class="flex items-center gap-2.5 w-full text-left py-2 px-3 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-variant/30 transition-all duration-300" id="sidebar-telemetry-btn">
+            <span class="material-symbols-outlined text-lg">timeline</span>
+            <span class="font-label-mono-sm text-[11px] uppercase font-medium">Telemetry</span>
+          </button>
+          
+          <button class="flex items-center gap-2.5 w-full text-left py-2 px-3 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-variant/30 transition-all duration-300" id="sidebar-rehab-btn">
+            <span class="material-symbols-outlined text-lg">monitor_heart</span>
+            <span class="font-label-mono-sm text-[11px] uppercase font-medium">Diagnostics</span>
+          </button>
+        </div>
+
+        <!-- Hardware & Emulator Connection (Acts as connection-bar-shared) -->
+        <div class="glass-panel p-3.5 flex flex-col gap-3" id="connection-bar-shared">
+          <div>
+            <p class="font-label-mono-sm text-[9px] text-on-surface-variant uppercase mb-0.5">Hardware Link</p>
+            <p class="font-label-mono-sm text-[10px] text-error font-bold uppercase tracking-wider leading-none" id="conn-status-title">Disconnected</p>
+          </div>
+
+          <!-- Buttons -->
+          <div class="flex flex-col gap-1.5">
+            <button class="w-full py-1.5 rounded bg-primary text-on-primary font-label-mono-sm text-[10px] uppercase font-bold shadow-md shadow-primary/20 hover:brightness-110 transition-all active:scale-95 duration-100" id="btn-link-arduino">Link Device</button>
+            <button class="w-full py-1.5 rounded bg-rose-600 text-white font-label-mono-sm text-[10px] uppercase font-bold shadow-md shadow-rose-600/20 hover:brightness-110 transition-all active:scale-95 duration-100 hidden" id="btn-stop-stream">Stop Link</button>
+            <button class="w-full py-1.5 rounded bg-surface-container-highest text-on-surface font-label-mono-sm text-[10px] uppercase border border-border-low-light hover:bg-surface-bright transition-colors active:scale-95 duration-100" id="btn-start-demo">Demo Simulator</button>
+          </div>
+
+          <!-- Baud Rate & Help -->
+          <div class="flex items-center justify-between gap-1 border-t border-border-low-light/40 pt-2.5">
+            <div class="flex items-center gap-1 bg-surface-container rounded px-2 py-1 border border-border-low-light flex-grow">
+              <span class="text-[8px] font-bold font-label-mono-sm text-on-surface-variant uppercase">Baud:</span>
+              <select id="serial-baud-rate" class="bg-transparent border-0 text-[10px] font-bold text-primary focus:ring-0 cursor-pointer p-0 select-custom w-full pr-4">
+                <option value="9600" selected>9600</option>
+                <option value="115200">115200</option>
+                <option value="57600">57600</option>
+                <option value="38400">38400</option>
+                <option value="19200">19200</option>
+              </select>
+            </div>
+            <button class="p-1.5 rounded border border-border-low-light hover:border-primary/50 text-on-surface-variant hover:text-primary transition-all flex items-center justify-center bg-surface-container/30 shrink-0" id="btn-troubleshoot-help" title="Hardware Connection Guide">
+              <span class="material-symbols-outlined text-[15px]">help</span>
+            </button>
+          </div>
+
+          <!-- Simulator Stance Selector pills -->
+          <div id="sim-selector-wrapper" class="hidden flex-col gap-1 border-t border-border-low-light/40 pt-2.5">
+            <p class="font-label-mono-sm text-[8px] text-on-surface-variant uppercase mb-1">Sim Stance</p>
+            <button class="w-full py-1 text-[9px] font-bold uppercase text-primary bg-primary/10 rounded-sm sim-stance-btn text-left px-2 border-l border-primary" data-stance="normal">Normal</button>
+            <button class="w-full py-1 text-[9px] font-bold uppercase text-on-surface-variant hover:text-on-surface rounded-sm sim-stance-btn text-left px-2" data-stance="flat">Flat Foot</button>
+            <button class="w-full py-1 text-[9px] font-bold uppercase text-on-surface-variant hover:text-on-surface rounded-sm sim-stance-btn text-left px-2" data-stance="high-arch">High Arch</button>
+            <button class="w-full py-1 text-[9px] font-bold uppercase text-on-surface-variant hover:text-on-surface rounded-sm sim-stance-btn text-left px-2" data-stance="walking">Walking</button>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Panel area with tab-routed grids -->
+      <div class="col-span-12 lg:col-span-10">
+        
+        <!-- VIEW 1: WORKSPACE (LIVE TELEMETRY HEATMAP) -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-gutter" id="tab-view-live">
+          
+          <section class="glass-panel flex flex-col min-h-[600px] border-t-2 border-primary">
+            <div class="p-panel-padding flex justify-between items-center border-b border-border-low-light/50">
+              <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">footprint</span>
+                <h2 class="font-label-mono-lg text-label-mono-lg font-bold uppercase tracking-widest text-on-surface">Real-Time Foot Pressure Heatmap</h2>
+              </div>
+            </div>
+            
+            <div class="flex-grow flex flex-col items-center justify-between pt-3 pb-3 px-4 relative overflow-hidden foot-map-container">
+              <!-- scanning-line sweeps across sole blueprint -->
+              <div id="xray-scanline" class="scanning-line"></div>
+              
+              <!-- X-Ray HUD telemetry Overlay -->
+              <div id="xray-hud" class="xray-hud-overlay">
+                <span class="xray-hud-dot"></span>
+                <span class="xray-hud-text">SYS.SCAN: ACTIVE</span>
+              </div>
+
+              <!-- Interactive Blueprint FSR SVG Foot sole -->
+              <div class="relative w-full h-[260px] lg:h-[280px] flex items-center justify-center foot-svg-container shrink-0" style="max-width: 220px;">
+                <svg viewBox="0 0 280 460" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 100%;">
+                  <defs>
+                    <filter id="glow-heel" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur id="blur-heel" stdDeviation="12" /></filter>
+                    <filter id="glow-inner" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur id="blur-inner" stdDeviation="12" /></filter>
+                    <filter id="glow-outer" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur id="blur-outer" stdDeviation="12" /></filter>
+                    <filter id="glow-arch" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur id="blur-arch" stdDeviation="12" /></filter>
+                    
+                    <linearGradient id="footprint-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="var(--blueprint-grad-stop1)" />
+                      <stop offset="50%" stop-color="var(--blueprint-grad-stop2)" />
+                      <stop offset="100%" stop-color="var(--blueprint-grad-stop3)" />
+                    </linearGradient>
+
+                    <!-- blueprint Grid lines -->
+                    <pattern id="blueprint-grid" width="18" height="18" patternUnits="userSpaceOnUse">
+                      <path d="M 18 0 L 0 0 0 18" fill="none" stroke="var(--blueprint-grid-stroke)" stroke-width="0.75" />
+                    </pattern>
+                  </defs>
+
+                  <!-- footprint background blueprint grid -->
+                  <rect width="280" height="460" fill="url(#blueprint-grid)" style="opacity: 0.85;" />
+
+                  <!-- Mirror-mapped anatomically detailed sole path -->
+                  <path
+                    class="foot-sole"
+                    d="M 155,90 C 175,92 190,110 200,130 C 210,150 215,170 215,190 C 215,225 200,240 195,260 C 190,280 190,300 192,320 C 195,340 188,360 185,380 C 178,425 98,425 95,380 C 92,360 90,340 92,320 C 95,300 92,270 85,245 C 78,220 65,190 65,160 C 65,120 90,95 120,90 Z"
+                    fill="url(#footprint-grad)"
+                    stroke="var(--foot-stroke)"
+                    stroke-width="1.5"
+                  />
+
+                  <!-- toes outlines -->
+                  <ellipse class="foot-toe" cx="172" cy="58" rx="14" ry="17" fill="rgba(255,255,255,0.01)" stroke="var(--foot-stroke)" />
+                  <circle class="foot-toe" cx="143" cy="52" r="9.5" fill="rgba(255,255,255,0.01)" stroke="var(--foot-stroke)" />
+                  <circle class="foot-toe" cx="120" cy="56" r="8.5" fill="rgba(255,255,255,0.01)" stroke="var(--foot-stroke)" />
+                  <circle class="foot-toe" cx="100" cy="65" r="7.5" fill="rgba(255,255,255,0.01)" stroke="var(--foot-stroke)" />
+                  <circle class="foot-toe" cx="82" cy="78" r="6.5" fill="rgba(255,255,255,0.01)" stroke="var(--foot-stroke)" />
+
+                  <!-- mathematically glowing hotspots mapping FSR values -->
+                  <circle id="glow-circle-inner" cx="165" cy="155" r="28" fill="rgba(76, 215, 246, 0.15)" filter="url(#glow-inner)" class="foot-sensor-glow" />
+                  <circle id="glow-circle-arch" cx="175" cy="270" r="28" fill="rgba(76, 215, 246, 0.15)" filter="url(#glow-arch)" class="foot-sensor-glow" />
+                  <circle id="glow-circle-outer" cx="105" cy="270" r="28" fill="rgba(76, 215, 246, 0.15)" filter="url(#glow-outer)" class="foot-sensor-glow" />
+                  <circle id="glow-circle-heel" cx="140" cy="375" r="28" fill="rgba(76, 215, 246, 0.15)" filter="url(#glow-heel)" class="foot-sensor-glow" />
+
+                  <!-- physical stats pin dots -->
+                  <circle cx="165" cy="155" r="5" fill="#ffffff" stroke="#0a0c10" stroke-width="2" />
+                  <circle cx="175" cy="270" r="5" fill="#ffffff" stroke="#0a0c10" stroke-width="2" />
+                  <circle cx="105" cy="270" r="5" fill="#ffffff" stroke="#0a0c10" stroke-width="2" />
+                  <circle cx="140" cy="375" r="5" fill="#ffffff" stroke="#0a0c10" stroke-width="2" />
+                </svg>
+              </div>
+
+              <!-- Big Detection Display -->
+              <div class="my-2 text-center shrink-0" id="heatmap-status-display">
+                <p class="font-label-mono-sm text-[9px] text-on-surface-variant uppercase tracking-widest mb-0.5 leading-none">Detected Gait Profile</p>
+                <h2 class="text-2xl font-black tracking-wide text-on-surface-variant uppercase transition-all duration-300 font-['Outfit'] leading-tight" id="heatmap-status-text">NO WEIGHT BEARING</h2>
+              </div>
+
+              <!-- FSR Bento stats cards -->
+              <div class="grid grid-cols-4 gap-2 w-full shrink-0">
+                <div class="bg-surface-container-low border border-border-low-light p-3 rounded text-center border-b-2 border-primary">
+                  <p class="text-[10px] font-bold text-on-surface-variant uppercase mb-1">Toe<span class="ml-1 text-[8px] opacity-70">(FSR1)</span></p>
+                  <p class="font-label-mono-lg text-label-mono-lg text-primary font-bold" id="val-inner">0</p>
+                </div>
+                <div class="bg-surface-container-low border border-border-low-light p-3 rounded text-center border-b-2 border-secondary">
+                  <p class="text-[10px] font-bold text-on-surface-variant uppercase mb-1">Ball<span class="ml-1 text-[8px] opacity-70">(FSR2)</span></p>
+                  <p class="font-label-mono-lg text-label-mono-lg text-secondary font-bold" id="val-arch">0</p>
+                </div>
+                <div class="bg-surface-container-low border border-border-low-light p-3 rounded text-center border-b-2 border-tertiary">
+                  <p class="text-[10px] font-bold text-on-surface-variant uppercase mb-1">Arch<span class="ml-1 text-[8px] opacity-70">(FSR3)</span></p>
+                  <p class="font-label-mono-lg text-label-mono-lg text-tertiary font-bold" id="val-outer">0</p>
+                </div>
+                <div class="bg-surface-container-low border border-border-low-light p-3 rounded text-center border-b-2 border-error">
+                  <p class="text-[10px] font-bold text-on-surface-variant uppercase mb-1">Heel<span class="ml-1 text-[8px] opacity-70">(FSR4)</span></p>
+                  <p class="font-label-mono-lg text-label-mono-lg text-error font-bold" id="val-heel">0</p>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Collapsible Serial Console Drawer -->
+            <div class="border-t border-border-low-light/50 bg-surface-container-lowest/50" id="serial-console-drawer">
+              <!-- Header tab toggler -->
+              <div class="flex justify-between items-center px-6 py-3 bg-surface-container/30 cursor-pointer hover:bg-surface-container/60 transition-colors" id="btn-toggle-serial-console">
+                <div class="flex items-center gap-2">
+                  <span class="w-1.5 h-1.5 rounded-full bg-rose-500" id="console-live-dot"></span>
+                  <span class="text-[9px] font-bold font-label-mono-sm text-on-surface-variant uppercase tracking-widest">Hardware Debug Console</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="text-[9px] font-label-mono-sm text-on-surface-variant uppercase border border-border-low-light px-2 py-0.5 rounded cursor-pointer hover:bg-primary/20 hover:text-primary transition-colors hidden" id="btn-clear-console-logs">Clear Logs</span>
+                  <span class="material-symbols-outlined text-sm text-on-surface-variant transition-transform" id="console-chevron">keyboard_arrow_up</span>
+                </div>
+              </div>
+              
+              <!-- Monospace Logger (collapsed by default) -->
+              <div class="h-0 overflow-hidden transition-all duration-300 relative" id="serial-console-body">
+                <!-- Glowing matrix styling inside -->
+                <div class="serial-terminal p-4 font-mono text-[10px] h-[120px] overflow-y-auto bg-[#030712] border-t border-border-low-light" id="serial-terminal-logs">
+                  <div class="text-on-surface-variant opacity-60">// Debug Console inactive. Connect serial hardware to begin streaming...</div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Right Column views -->
+          <div class="flex flex-col gap-3 lg:h-full lg:overflow-y-auto pr-1">
+            
+            <!-- Clinical Diagnostics -->
+            <section class="glass-panel flex flex-col border-t-2 border-diagnostic-magenta shrink-0">
+              <div class="p-3.5 flex justify-between items-center border-b border-border-low-light/50">
+                <div class="flex items-center gap-2">
+                  <span class="material-symbols-outlined text-diagnostic-magenta text-lg">magnification_small</span>
+                  <h2 class="font-label-mono-lg text-xs font-bold uppercase tracking-widest text-on-surface">Clinical Diagnostics</h2>
+                </div>
+                <div class="px-2 py-0.5 bg-secondary/10 border border-secondary/20 rounded-full">
+                  <span class="text-[8px] font-bold text-secondary uppercase tracking-widest">Live Analysis</span>
+                </div>
+              </div>
+              
+              <div class="p-3.5">
+                <div class="flex flex-col sm:flex-row gap-4 items-center">
+                  <!-- Gauge -->
+                  <div class="relative w-24 h-24 flex items-center justify-center shrink-0">
+                    <svg class="w-full h-full transform -rotate-90">
+                      <circle class="text-surface-container-highest" cx="64" cy="64" fill="transparent" r="58" stroke="currentColor" stroke-width="8"></circle>
+                      <circle class="text-primary transition-all duration-500" id="gauge-bar" cx="64" cy="64" fill="transparent" r="58" stroke="currentColor" stroke-dasharray="364.4" stroke-dashoffset="364.4" stroke-width="8"></circle>
+                    </svg>
+                    <div class="absolute text-center">
+                      <p class="text-xl text-on-surface leading-none font-bold font-['Outfit']" id="gauge-ratio-text">0.00</p>
+                      <p class="text-[8px] font-bold text-on-surface-variant uppercase mt-0.5">Arch Index</p>
+                    </div>
+                  </div>
+                  
+                  <div class="flex-grow w-full">
+                    <div class="bg-surface-container p-3 rounded-lg border border-border-low-light">
+                      <h3 class="font-label-mono-lg text-xs font-bold text-on-surface uppercase mb-1" id="diag-header-title">Stand Patient Upright</h3>
+                      <p class="text-xs text-on-surface-variant leading-relaxed" id="diag-desc-text">
+                        No significant standing pressure detected. Please stand firmly on the FSR sensory insert with your full body weight to initialize diagnostic calculation.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- Prototype Simulation Section -->
+            <section class="glass-panel border-l-4 border-l-primary bg-surface-container-low/55 p-3 flex flex-col gap-3 shrink-0">
+              <div class="flex items-center justify-between gap-4 border-b border-border-low-light/30 pb-2">
+                <div class="flex items-center gap-2">
+                  <div class="w-8 h-8 rounded-full bg-primary/10 border border-primary/30 flex items-center justify-center text-primary shrink-0">
+                    <span class="material-symbols-outlined text-lg animate-pulse">developer_board</span>
+                  </div>
+                  <div>
+                    <h4 class="font-label-mono-lg text-xs font-bold text-on-surface uppercase tracking-wider">Prototype Emulation</h4>
+                    <p class="text-[10px] text-on-surface-variant leading-none mt-0.5">
+                      Real-time hardware status active.
+                    </p>
+                  </div>
+                </div>
+                <span class="px-2 py-0.5 bg-primary/15 border border-primary/20 rounded text-[8px] font-bold text-primary uppercase tracking-widest shrink-0 font-mono shadow-sm">
+                  EMULATION
+                </span>
+              </div>
+                        <!-- Prototype Simulation Cards Grid -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mt-0.5">
+                
+                <!-- 1. Pump Simulation Module -->
+                <section class="glass-panel flex flex-col border-t-2 border-primary">
+                  <div class="p-3 border-b border-border-low-light/50 flex justify-between items-center">
+                    <div class="flex items-center gap-1.5">
+                      <span class="material-symbols-outlined text-primary text-base">filter_vintage</span>
+                      <h3 class="font-label-mono-lg text-xs font-bold uppercase tracking-widest text-on-surface">Pump Status</h3>
+                    </div>
+                  </div>
+                  
+                  <div class="p-3.5 flex-grow flex flex-col items-center justify-center min-h-[100px]">
+                    <span id="sim-pump-state" class="text-base font-black font-mono tracking-wider uppercase px-3 py-1 rounded bg-surface border border-border-low-light text-on-surface-variant">OFF</span>
+                    <!-- Hidden element to satisfy JS updates -->
+                    <span id="sim-pump-badge" class="hidden"></span>
+                  </div>
+                </section>
+ 
+                <!-- 2. Adaptive Air Cushion Simulation -->
+                <section class="glass-panel flex flex-col border-t-2 border-tertiary">
+                  <div class="p-3 border-b border-border-low-light/50 flex justify-between items-center">
+                    <div class="flex items-center gap-1.5">
+                      <span class="material-symbols-outlined text-tertiary text-base">air</span>
+                      <h3 class="font-label-mono-lg text-xs font-bold uppercase tracking-widest text-on-surface">Cushions</h3>
+                    </div>
+                    <span class="px-1.5 py-0.5 text-[8px] font-bold text-tertiary uppercase tracking-widest font-mono border border-tertiary/20 bg-tertiary/5 rounded">PSI %</span>
+                  </div>
+                  
+                  <div class="p-3 flex-grow flex flex-col justify-between gap-1.5 text-[11px]">
+                    <div class="space-y-1.5 flex-grow">
+                      <!-- Toe Cushion -->
+                      <div class="space-y-0.5">
+                        <div class="flex justify-between text-[9px]">
+                          <span class="font-medium text-on-surface-variant">Toe</span>
+                          <span class="font-bold text-primary font-mono"><span id="sim-cushion-val-1">0</span>%</span>
+                        </div>
+                        <div class="bg-surface-container-highest rounded-full h-1 overflow-hidden border border-border-low-light">
+                          <div id="sim-cushion-bar-1" class="bg-primary h-full transition-all duration-300" style="width: 0%"></div>
+                        </div>
+                      </div>
+                      <!-- Forefoot Cushion -->
+                      <div class="space-y-0.5">
+                        <div class="flex justify-between text-[9px]">
+                          <span class="font-medium text-on-surface-variant">Forefoot</span>
+                          <span class="font-bold text-secondary font-mono"><span id="sim-cushion-val-2">0</span>%</span>
+                        </div>
+                        <div class="bg-surface-container-highest rounded-full h-1 overflow-hidden border border-border-low-light">
+                          <div id="sim-cushion-bar-2" class="bg-secondary h-full transition-all duration-300" style="width: 0%"></div>
+                        </div>
+                      </div>
+                      <!-- Midfoot Cushion -->
+                      <div class="space-y-0.5">
+                        <div class="flex justify-between text-[9px]">
+                          <span class="font-medium text-on-surface-variant">Midfoot</span>
+                          <span class="font-bold text-tertiary font-mono"><span id="sim-cushion-val-3">0</span>%</span>
+                        </div>
+                        <div class="bg-surface-container-highest rounded-full h-1 overflow-hidden border border-border-low-light">
+                          <div id="sim-cushion-bar-3" class="bg-tertiary h-full transition-all duration-300" style="width: 0%"></div>
+                        </div>
+                      </div>
+                      <!-- Heel Cushion -->
+                      <div class="space-y-0.5">
+                        <div class="flex justify-between text-[9px]">
+                          <span class="font-medium text-on-surface-variant">Heel</span>
+                          <span class="font-bold text-error font-mono"><span id="sim-cushion-val-4">0</span>%</span>
+                        </div>
+                        <div class="bg-surface-container-highest rounded-full h-1 overflow-hidden border border-border-low-light">
+                          <div id="sim-cushion-bar-4" class="bg-error h-full transition-all duration-300" style="width: 0%"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              </div>
+            </section>
+          </div>
+        </div>
+
+        <!-- VIEW 3: REHAB & EDUCATION HUB (8 CORRECTIVE EXERCISE VIDEO CARDS) -->
+        <div class="hidden" id="tab-view-education">
+          <div class="glass-panel p-6 border-t-2 border-secondary flex flex-col gap-6">
+            <div class="flex justify-between items-center border-b border-border-low-light/50 pb-3">
+              <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-secondary">fitness_center</span>
+                <span class="font-label-mono-lg uppercase font-bold text-on-surface tracking-widest">Rehab Exercises Library</span>
+              </div>
+              <span class="text-xs text-on-surface-variant">8 CORRECTIVE VIDEO PROTOCOLS FOR SEVERE FLAT FOOT & ARCH REBUILDING</span>
+            </div>
+
+            <!-- Grid of 8 Exercise video cards -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-gutter" id="mockup-exercises-grid">
+              <!-- Dynamically injected exercise video cards redirecting to YouTube -->
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Hidden Educational Footer Panel to preserve JS selectors -->
+    <footer id="educational-footer-panel" class="hidden">
+      <button id="footer-btn-rehab" class="hidden"></button>
+    </footer>
+  </main>
+
+  <!-- Interactive script -->
+  <script src="app.js"></script>
+  <script>
+    // Theme toggle button logic
+    (function() {
+      const btn = document.getElementById('theme-toggle-btn');
+      const icon = document.getElementById('theme-toggle-icon');
+      
+      const updateIcon = (isDark) => {
+        if (icon) {
+          icon.innerText = isDark ? 'light_mode' : 'dark_mode';
+        }
+      };
+
+      // Set initial icon on load
+      updateIcon(document.documentElement.classList.contains('dark'));
+
+      if (btn) {
+        btn.addEventListener('click', () => {
+          const isDark = document.documentElement.classList.toggle('dark');
+          updateIcon(isDark);
+          localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        });
+      }
+    })();
+  </script>
+
+  <!-- Troubleshooting Help Modal Backdrop -->
+  <div class="troubleshoot-backdrop" id="troubleshoot-backdrop-overlay">
+    <div class="troubleshoot-modal p-6 text-on-surface">
+      <!-- Close Button -->
+      <button class="absolute top-4 right-4 p-2 rounded-full hover:bg-surface-variant/50 text-on-surface-variant hover:text-primary transition-all active:scale-95 duration-100" id="btn-close-troubleshoot">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-12 h-12 rounded-full bg-primary/10 border border-primary/30 flex items-center justify-center text-primary troubleshoot-icon-glow">
+          <span class="material-symbols-outlined text-2xl animate-pulse">sensors</span>
+        </div>
+        <div>
+          <h3 class="font-headline-md text-base font-bold text-on-surface uppercase tracking-wide">Arduino Hardware Link Guide</h3>
+          <p class="text-[9px] text-on-surface-variant uppercase tracking-widest font-mono">Troubleshoot serial telemetry data feeds</p>
+        </div>
+      </div>
+
+      <div class="space-y-4 text-sm leading-relaxed">
+        <!-- Step 1 -->
+        <div class="bg-surface-container-low border border-border-low-light p-4 rounded-lg">
+          <h4 class="font-bold text-xs text-primary uppercase tracking-wider mb-2 flex items-center gap-1.5">
+            <span class="px-1.5 py-0.5 rounded-full bg-primary/20 text-primary text-[9px] font-mono font-black">01</span>
+            USB-to-UART Bridge Driver Missing
+          </h4>
+          <p class="text-[11px] text-on-surface-variant leading-relaxed">
+            If your Arduino board is plugged in but <strong>does not appear</strong> in the port list when clicking <strong class="text-primary font-bold">LINK DEVICE</strong>, your laptop is likely missing USB serial drivers. Install them and restart your browser:
+          </p>
+          <div class="mt-3 flex flex-wrap gap-2">
+            <a href="https://www.wch-ic.com/downloads/CH341SER_EXE.html" target="_blank" class="px-3 py-1.5 bg-surface-container border border-border-low-light text-[9px] font-bold text-primary rounded hover:bg-primary/10 transition-colors inline-flex items-center gap-1">
+              <span class="material-symbols-outlined text-[11px]">download</span> CH340 / CH341 Driver (Most Boards)
+            </a>
+            <a href="https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers" target="_blank" class="px-3 py-1.5 bg-surface-container border border-border-low-light text-[9px] font-bold text-primary rounded hover:bg-primary/10 transition-colors inline-flex items-center gap-1">
+              <span class="material-symbols-outlined text-[11px]">download</span> CP210x Driver (NodeMCU Boards)
+            </a>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="bg-surface-container-low border border-border-low-light p-4 rounded-lg">
+          <h4 class="font-bold text-xs text-primary uppercase tracking-wider mb-2 flex items-center gap-1.5">
+            <span class="px-1.5 py-0.5 rounded-full bg-primary/20 text-primary text-[9px] font-mono font-black">02</span>
+            Baud Rate Verification
+          </h4>
+          <p class="text-[11px] text-on-surface-variant leading-relaxed">
+            If you connect successfully but see <strong>garbage text or nothing at all</strong>, make sure the baud rate in your Arduino sketch (e.g. <code>Serial.begin(9600);</code>) matches the <strong>Baud select dropdown</strong> in our header.
+          </p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="bg-surface-container-low border border-border-low-light p-4 rounded-lg">
+          <h4 class="font-bold text-xs text-primary uppercase tracking-wider mb-2 flex items-center gap-1.5">
+            <span class="px-1.5 py-0.5 rounded-full bg-primary/20 text-primary text-[9px] font-mono font-black">03</span>
+            USB Cable Capabilities
+          </h4>
+          <p class="text-[11px] text-on-surface-variant leading-relaxed">
+            Many standard micro-USB or USB-C cables are designed <strong>strictly for power charging</strong> and do not contain internal data lines. Swap your USB cable if the port list is completely empty or has no response.
+          </p>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="bg-surface-container-low border border-border-low-light p-4 rounded-lg">
+          <h4 class="font-bold text-xs text-primary uppercase tracking-wider mb-2 flex items-center gap-1.5">
+            <span class="px-1.5 py-0.5 rounded-full bg-primary/20 text-primary text-[9px] font-mono font-black">04</span>
+            Port Busy or Locks
+          </h4>
+          <p class="text-[11px] text-on-surface-variant leading-relaxed">
+            Only one application can read a serial port at a time. Close the Arduino IDE Serial Monitor, serial plotters, or other browser tabs that might have locked the COM port.
+          </p>
+        </div>
+      </div>
+      
+      <div class="mt-6 pt-4 border-t border-border-low-light flex justify-end">
+        <button class="px-6 py-2 rounded-lg bg-primary text-on-primary font-label-mono-sm uppercase font-bold shadow-lg shadow-primary/20 hover:brightness-110 transition-all active:scale-95 duration-100" id="btn-close-troubleshoot-footer">Got It</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

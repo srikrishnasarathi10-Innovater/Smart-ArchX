@@ -1,0 +1,468 @@
+/* Design System Theme Variables */
+:root {
+  /* Common Core Variables */
+  --font-family: 'Inter', sans-serif;
+  
+  /* Theme Colors: Clinical Light Mode */
+  --background: #F8FAFC;
+  --on-background: #020617;
+  --surface: #FFFFFF;
+  --on-surface: #020617;
+  --surface-variant: #F1F5F9;
+  --on-surface-variant: #1E293B;
+  --surface-charcoal: #FFFFFF;
+  --surface-bright: #FFFFFF;
+  --surface-container: #FFFFFF;
+  --surface-container-low: #F8FAFC;
+  --surface-container-high: #F1F5F9;
+  --surface-container-highest: #E2E8F0;
+  --surface-container-lowest: #FFFFFF;
+  --border-low-light: rgba(15, 23, 42, 0.06);
+  --outline: #94A3B8;
+  --outline-variant: #CBD5E1;
+  --primary: #2563EB;
+  --on-primary: #FFFFFF;
+  --primary-container: #EFF6FF;
+  --on-primary-container: #1E40AF;
+  --primary-fixed: #DBEAFE;
+  --primary-fixed-dim: #3B82F6;
+  --secondary: #0EA5E9;
+  --on-secondary: #FFFFFF;
+  --secondary-container: #E0F2FE;
+  --on-secondary-container: #0369A1;
+  --secondary-fixed: #E0F2FE;
+  --secondary-fixed-dim: #0EA5E9;
+  --tertiary: #10B981;
+  --on-tertiary: #FFFFFF;
+  --tertiary-container: #D1FAE5;
+  --on-tertiary-container: #065F46;
+  --diagnostic-magenta: #2563EB;
+  --clinical-white: #FFFFFF;
+  --error: #EF4444;
+  --error-container: #FEE2E2;
+
+  /* Component Properties: Clinical Light Mode */
+  --panel-bg: rgba(255, 255, 255, 0.85);
+  --panel-border: rgba(15, 23, 42, 0.05);
+  --panel-shadow-hover: 0 10px 25px -5px rgba(37, 99, 235, 0.03), 0 8px 10px -6px rgba(37, 99, 235, 0.03);
+  --panel-border-hover: rgba(37, 99, 235, 0.2);
+  --spotlight-grad: radial-gradient(800px circle at var(--x, 50%) var(--y, 50%), rgba(37, 99, 235, 0.03), transparent 40%);
+  --scroll-track: #f8fafc;
+  --scroll-thumb: #cbd5e1;
+  --scroll-thumb-hover: #2563eb;
+  --foot-stroke: rgba(37, 99, 235, 0.6);
+  --foot-stroke-width: 1.75;
+  --foot-fill-scanning: rgba(37, 99, 235, 0.05);
+  --foot-stroke-scanning: rgba(37, 99, 235, 0.8);
+  --foot-stroke-width-scanning: 2.25;
+  --foot-shadow-scanning: drop-shadow(0 0 12px rgba(37, 99, 235, 0.25));
+  --scanning-color: #2563eb;
+  --portrait-silhouette: radial-gradient(circle at 50% 60%, rgba(37, 99, 235, 0.06) 0%, transparent 60%), linear-gradient(to top, rgba(255, 255, 255, 0.9) 0%, transparent 80%);
+  --portrait-wireframe: #2563eb;
+  --portrait-wireframe-hover: #0ea5e9;
+  
+  --blueprint-grid-stroke: rgba(37, 99, 235, 0.14);
+  --blueprint-grad-stop1: rgba(37, 99, 235, 0.08);
+  --blueprint-grad-stop2: rgba(37, 99, 235, 0.01);
+  --blueprint-grad-stop3: rgba(14, 165, 233, 0.02);
+}
+
+.dark {
+  /* Theme Colors: Futuristic Cyber-Dark Mode */
+  --background: #06080F;
+  --on-background: #F8FAFC;
+  --surface: #0B0E17;
+  --on-surface: #F8FAFC;
+  --surface-variant: #171E2E;
+  --on-surface-variant: #94A3B8;
+  --surface-charcoal: #0A0D16;
+  --surface-bright: #172033;
+  --surface-container: #0B0E17;
+  --surface-container-low: #06080F;
+  --surface-container-high: #121724;
+  --surface-container-highest: #1E293B;
+  --surface-container-lowest: #04060A;
+  --border-low-light: rgba(6, 182, 212, 0.12);
+  --outline: rgba(6, 182, 212, 0.3);
+  --outline-variant: rgba(168, 85, 247, 0.2);
+  --primary: #06B6D4;
+  --on-primary: #000000;
+  --primary-container: rgba(6, 182, 212, 0.15);
+  --on-primary-container: #22D3EE;
+  --primary-fixed: #22D3EE;
+  --primary-fixed-dim: #06B6D4;
+  --secondary: #A855F7;
+  --on-secondary: #000000;
+  --secondary-container: rgba(168, 85, 247, 0.15);
+  --on-secondary-container: #E9D5FF;
+  --secondary-fixed: #E9D5FF;
+  --secondary-fixed-dim: #C084FC;
+  --tertiary: #10B981;
+  --on-tertiary: #000000;
+  --tertiary-container: rgba(16, 185, 129, 0.15);
+  --on-tertiary-container: #A7F3D0;
+  --diagnostic-magenta: #A855F7;
+  --clinical-white: #0B0E17;
+  --error: #EF4444;
+  --error-container: rgba(239, 68, 68, 0.15);
+
+  /* Component Properties: Futuristic Cyber-Dark Mode */
+  --panel-bg: rgba(11, 14, 23, 0.75);
+  --panel-border: rgba(6, 182, 212, 0.15);
+  --panel-shadow-hover: 0 10px 30px -5px rgba(6, 182, 212, 0.12), 0 8px 10px -6px rgba(168, 85, 247, 0.08);
+  --panel-border-hover: rgba(6, 182, 212, 0.35);
+  --spotlight-grad: radial-gradient(600px circle at var(--x, 50%) var(--y, 50%), rgba(6, 182, 212, 0.07), rgba(168, 85, 247, 0.02) 40%, transparent 60%);
+  --scroll-track: #06080F;
+  --scroll-thumb: rgba(6, 182, 212, 0.25);
+  --scroll-thumb-hover: #06B6D4;
+  --foot-stroke: rgba(6, 182, 212, 0.6);
+  --foot-stroke-width: 2.2;
+  --foot-fill-scanning: rgba(6, 182, 212, 0.08);
+  --foot-stroke-scanning: rgba(6, 182, 212, 0.85);
+  --foot-stroke-width-scanning: 2.8;
+  --foot-shadow-scanning: drop-shadow(0 0 15px rgba(6, 182, 212, 0.35));
+  --scanning-color: #06B6D4;
+  --portrait-silhouette: radial-gradient(circle at 50% 60%, rgba(6, 182, 212, 0.08) 0%, transparent 60%), linear-gradient(to top, rgba(11, 14, 23, 0.9) 0%, transparent 80%);
+  --portrait-wireframe: #06B6D4;
+  --portrait-wireframe-hover: #A855F7;
+  
+  --blueprint-grid-stroke: rgba(6, 182, 212, 0.2);
+  --blueprint-grad-stop1: rgba(6, 182, 212, 0.12);
+  --blueprint-grad-stop2: rgba(168, 85, 247, 0.03);
+  --blueprint-grad-stop3: rgba(6, 182, 212, 0.02);
+}
+
+/* Custom Scrollbar Styles with CSS variables */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--scroll-track);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--scroll-thumb);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scroll-thumb-hover);
+  box-shadow: 0 0 10px var(--scroll-thumb-hover);
+}
+
+/* Glass panel styling base with CSS variables */
+.glass-panel {
+  background: var(--panel-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--panel-border);
+  border-radius: 0.5rem;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Spotlight radial glow effect on hover */
+.glass-panel::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--spotlight-grad);
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.glass-panel:hover::after {
+  opacity: 1;
+}
+
+.glass-panel:hover {
+  transform: translateY(-2px);
+  border-color: var(--panel-border-hover);
+  box-shadow: var(--panel-shadow-hover);
+}
+
+/* Premium Dynamic Neon Glow borders & shadows */
+.glow-cyan {
+  box-shadow: 0 10px 25px -5px rgba(6, 182, 212, 0.15), 0 8px 10px -6px rgba(6, 182, 212, 0.1);
+  border-color: var(--primary) !important;
+}
+
+.glow-magenta {
+  box-shadow: 0 10px 25px -5px rgba(168, 85, 247, 0.15), 0 8px 10px -6px rgba(168, 85, 247, 0.1);
+  border-color: var(--secondary) !important;
+}
+
+/* Vector Foot sole styles */
+.foot-map-container {
+  position: relative;
+  background: radial-gradient(circle at center, rgba(6, 182, 212, 0.03) 0%, transparent 70%);
+}
+
+.foot-sensor-glow {
+  transition: fill 0.3s ease-out, r 0.3s ease-out;
+}
+
+.telemetry-card {
+  position: relative;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.telemetry-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 10%;
+  width: 80%;
+  height: 2px;
+  background: var(--accent-color, var(--primary));
+  box-shadow: 0 0 10px var(--accent-color, var(--primary));
+}
+
+/* X-Ray Sweep animation overlay */
+.scanning-line {
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--scanning-color), transparent);
+  box-shadow: 0 0 15px var(--scanning-color);
+  z-index: 10;
+  pointer-events: none;
+  opacity: 0;
+  top: 0%;
+}
+
+.scanning-line.scanning {
+  opacity: 1;
+  animation: sweep-move 4s ease-in-out infinite;
+}
+
+@keyframes sweep-move {
+  0% { top: 5%; }
+  50% { top: 95%; }
+  100% { top: 5%; }
+}
+
+/* Foot Sole & Toe Base Outline styles with theme variables */
+.foot-sole {
+  stroke: var(--foot-stroke) !important;
+  stroke-width: var(--foot-stroke-width) !important;
+  transition: all 0.3s ease;
+}
+
+.foot-toe {
+  stroke: var(--foot-stroke) !important;
+  stroke-width: var(--foot-stroke-width) !important;
+  transition: all 0.3s ease;
+}
+
+/* Foot Sole Outline effects in scanning mode */
+.foot-svg-container.scanning .foot-sole {
+  stroke: var(--foot-stroke-scanning) !important;
+  stroke-width: var(--foot-stroke-width-scanning) !important;
+  fill: var(--foot-fill-scanning) !important;
+  filter: var(--foot-shadow-scanning);
+  transition: all 0.3s ease;
+}
+
+.foot-svg-container.scanning .foot-toe {
+  stroke: var(--foot-stroke-scanning) !important;
+  stroke-width: var(--foot-stroke-width) !important;
+  fill: var(--foot-fill-scanning) !important;
+  transition: all 0.3s ease;
+}
+
+.foot-svg-container.scanning .xray-overlay {
+  opacity: 1 !important;
+}
+
+/* X-Ray HUD Status Overlay */
+.xray-hud-overlay {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  z-index: 12;
+  opacity: 0;
+  transform: translateY(-5px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.foot-svg-container.scanning .xray-hud-overlay {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.xray-hud-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: var(--primary);
+  animation: xray-dot-pulse 1s infinite alternate;
+}
+
+@keyframes xray-dot-pulse {
+  0% { opacity: 0.3; transform: scale(0.8); }
+  100% { opacity: 1; transform: scale(1.2); box-shadow: 0 0 6px var(--primary); }
+}
+
+/* Portrait mask styling for Patient cards */
+.patient-cyber-silhouette {
+  background-image: var(--portrait-silhouette);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Cyber head-and-shoulders wireframe outline */
+.patient-portrait-wireframe {
+  width: 100%;
+  height: 140px;
+  opacity: 0.2;
+  stroke: var(--portrait-wireframe);
+  stroke-width: 1.2;
+  fill: none;
+  stroke-dasharray: 4 4;
+  transition: opacity 0.3s ease, stroke 0.3s ease;
+}
+
+.glass-panel:hover .patient-portrait-wireframe {
+  opacity: 0.45;
+  stroke: var(--portrait-wireframe-hover);
+}
+
+/* KaTeX custom formatting overrides */
+.katex-display {
+  margin: 1.5em 0 !important;
+  color: var(--primary) !important;
+  font-size: 1.1em;
+}
+
+/* --- WEB SERIAL MONITOR & DIAGNOSTIC STYLES --- */
+#serial-console-drawer {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 20;
+  width: 100%;
+}
+
+.serial-terminal {
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.9);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(6, 182, 212, 0.3) #030712;
+  scroll-behavior: smooth;
+}
+
+/* Custom dark options inside standard selects */
+.select-custom {
+  appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='%2306B6D4' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+  background-repeat: no-repeat;
+  background-position-x: 95%;
+  background-position-y: 50%;
+  padding-right: 2rem !important;
+}
+
+.select-custom:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 1px var(--primary);
+}
+
+.terminal-line {
+  line-height: 1.6;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+  display: flex;
+  gap: 8px;
+}
+
+.terminal-timestamp {
+  color: rgba(6, 182, 212, 0.6);
+  user-select: none;
+  font-weight: 500;
+}
+
+.terminal-text-rx {
+  color: #4edea3;
+  word-break: break-all;
+}
+
+.terminal-text-sys {
+  color: #38bdf8;
+  font-weight: bold;
+}
+
+.terminal-text-err {
+  color: #f43f5e;
+  font-weight: bold;
+  animation: terminal-blink 1s infinite alternate;
+}
+
+@keyframes terminal-blink {
+  0% { opacity: 0.6; }
+  100% { opacity: 1; }
+}
+
+/* Interactive Troubleshooting Popover Overlay */
+.troubleshoot-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(4, 6, 10, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.troubleshoot-backdrop.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.troubleshoot-modal {
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  box-shadow: var(--panel-shadow-hover);
+  border-radius: 16px;
+  width: 90%;
+  max-width: 580px;
+  max-height: 85vh;
+  overflow-y: auto;
+  transform: scale(0.95) translateY(10px);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+
+.troubleshoot-backdrop.active .troubleshoot-modal {
+  transform: scale(1) translateY(0);
+}
+
+.troubleshoot-icon-glow {
+  animation: troubleshoot-pulse 2s infinite alternate;
+}
+
+@keyframes troubleshoot-pulse {
+  0% { box-shadow: 0 0 8px rgba(6, 182, 212, 0.2); }
+  100% { box-shadow: 0 0 16px rgba(6, 182, 212, 0.5); }
+}
+
